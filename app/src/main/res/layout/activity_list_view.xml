@@ -36,6 +36,7 @@
             android:layout_width="35dp"
             android:layout_height="33dp"
             android:layout_margin="15dp"
+            android:onClick="increment"
             android:background="@drawable/baseline_add_circle_outline_black_24dp"
             android:fontFamily="sans-serif-black" />
 
