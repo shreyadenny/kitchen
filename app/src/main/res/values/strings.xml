@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">kitchen</string>
+    <string name="kg">Kg</string>
+    <string name="gm">gm</string>
+    <string name="L">L</string>
+    <string name="ml">ml</string>
+    <string name="dozen">dozen</string>
+    <string name="packet">packet</string>
 </resources>
