@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class EditorActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EditorActivity extends AppCompatActivity{
     Spinner spinner;
     String unit;
     @Override
@@ -41,7 +41,18 @@ public class EditorActivity extends AppCompatActivity implements AdapterView.OnI
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                unit = parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), unit, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 
@@ -71,11 +82,4 @@ public class EditorActivity extends AppCompatActivity implements AdapterView.OnI
 //        });
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        unit = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), unit, Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) { }
 }
