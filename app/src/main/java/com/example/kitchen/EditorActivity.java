@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class EditorActivity extends AppCompatActivity {
+public class EditorActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    Spinner spinner;
+    String unit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,7 @@ public class EditorActivity extends AppCompatActivity {
         quantity.setText(q);
 
         //Spinner Values
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_gender);
+        spinner = (Spinner) findViewById(R.id.spinner_gender);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.units_array, android.R.layout.simple_spinner_item);
@@ -39,10 +41,7 @@ public class EditorActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-        //spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) EditorActivity.this);
-
-        //Spinner input
-        String unit = spinner.getSelectedItem().toString();
+        spinner.setOnItemSelectedListener(this);
 
 
 
@@ -72,8 +71,11 @@ public class EditorActivity extends AppCompatActivity {
 //        });
     }
 
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+        unit = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), unit, Toast.LENGTH_SHORT).show();
     }
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) { }
 }
