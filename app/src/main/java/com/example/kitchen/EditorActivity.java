@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class EditorActivity extends AppCompatActivity{
     Spinner spinner;
     String unit;
+    String q;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +29,7 @@ public class EditorActivity extends AppCompatActivity{
 
         //quantity
         TextView quantity = (TextView)findViewById(R.id.edit_quantity);
-        String q = "1";
-        quantity.setText(q);
+
 
         //Spinner Values
         spinner = (Spinner) findViewById(R.id.spinner_gender);
@@ -45,7 +45,26 @@ public class EditorActivity extends AppCompatActivity{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 unit = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), unit, Toast.LENGTH_SHORT).show();
+
+
+                switch(position){
+                    case 0:
+                    case 2:
+                    case 4:
+                    case 5:
+                        q="1";
+                        break;
+                    case 1:
+                        q="100";
+                        break;
+                    case 3:
+                        q="500";
+                        break;
+                    default:
+                        break;
+                }
+                quantity.setText(q);
+
             }
 
             @Override
@@ -56,15 +75,6 @@ public class EditorActivity extends AppCompatActivity{
 
 
 
-        if(unit=="gm") {
-            q = "100";
-            quantity.setText(q);
-        }
-        else if(unit=="ml")
-        {
-            q = "500";
-            quantity.setText(q);
-        }
 //        public void insertIngredient(){
 //            SQLiteDatabase db =
 //        }
