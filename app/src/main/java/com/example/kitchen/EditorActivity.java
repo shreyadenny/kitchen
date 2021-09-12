@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class EditorActivity extends AppCompatActivity{
     Spinner spinner;
     String unit;
-    String q;
+    int q;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,21 +52,20 @@ public class EditorActivity extends AppCompatActivity{
                     case 2:
                     case 4:
                     case 5:
-                        q="1";
+                        q=1;
                         break;
                     case 1:
-                        q="100";
+                        q=100;
                         break;
                     case 3:
-                        q="500";
+                        q=500;
                         break;
                     default:
                         break;
                 }
-                quantity.setText(q);
+                display(q);
 
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -90,6 +89,56 @@ public class EditorActivity extends AppCompatActivity{
 //                displayDatabaseInfo();
 //            }
 //        });
+    }
+
+    //increment quantity
+    public void increment(View view) {
+        switch (unit){
+            case "Kg":
+            case "L":
+            case "dozen":
+            case "packets":
+                q=q+1;
+                break;
+            case "gm":
+                q=q+100;
+                break;
+            case "ml":
+                q=q+500;
+                break;
+            default:
+                break;
+
+        }
+       display(q);
+    }
+    //decrement quantity
+    public void decrement(View view) {
+        switch (unit){
+            case "Kg":
+            case "L":
+            case "dozen":
+            case "packets":
+                q=q-1;
+                break;
+            case "gm":
+                q=q-100;
+                break;
+            case "ml":
+                q=q-500;
+                break;
+            default:
+                break;
+
+        }
+        if(q<0){q=0;}
+        display(q);
+    }
+
+    //display quantity
+    private void display(int number) {
+        TextView quantityTextView = (TextView) findViewById(R.id.edit_quantity);
+        quantityTextView.setText("" + number);
     }
 
 }

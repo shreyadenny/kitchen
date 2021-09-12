@@ -98,6 +98,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:text="-"
+        android:onClick="decrement"
         android:textColor="@color/white"
         android:layout_marginRight="8dp"/>
 
@@ -118,6 +119,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:text="+"
+        android:onClick="increment"
         android:textColor="@color/white"
         android:layout_marginLeft="8dp"/>
 </LinearLayout>
