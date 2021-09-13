@@ -1,6 +1,7 @@
 package com.example.kitchen;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -77,7 +78,6 @@ public class EditorActivity extends AppCompatActivity{
 //        public void insertIngredient(){
 //            SQLiteDatabase db =
 //        }
-
 
         //Actions on clicking the save button after entering new ingredient data
 //        Button save = (Button) findViewById(R.id.save);
