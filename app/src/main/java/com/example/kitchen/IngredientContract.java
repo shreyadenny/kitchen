@@ -4,7 +4,7 @@ import android.provider.BaseColumns;
 
 public class IngredientContract {
 
-        // To prevent someone from accidentally instantiating the contract class,
+    // To prevent someone from accidentally instantiating the contract class,
         // give it an empty constructor.
         private IngredientContract() {}
 

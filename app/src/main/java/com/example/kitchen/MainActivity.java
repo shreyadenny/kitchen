@@ -61,17 +61,49 @@ public class MainActivity extends AppCompatActivity {
         // and pass the context, which is the current activity.
         mDbHelper = new ingredientDbHelper(this);
 
+
+        TextView displayView = (TextView) findViewById(R.id.text);
+
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        // Perform this raw SQL query "SELECT * FROM pets"
-        // to get a Cursor that contains all rows from the pets table.
-        cursor = db.rawQuery("SELECT * FROM " + IngredientContract.IngredientEntry.TABLE_NAME, null);
+        String projection[]={IngredientContract.IngredientEntry._ID,
+                IngredientContract.IngredientEntry.COLUMN_INGREDIENT_NAME,
+                IngredientContract.IngredientEntry.COLUMN_INGREDIENT_MEASUREMENT,
+                IngredientContract.IngredientEntry.COLUMN_INGREDIENT_QUANTITY};
+        Cursor cursor = db.query(
+            IngredientContract.IngredientEntry.TABLE_NAME,
+            projection,
+            null,
+            null,
+            null,
+            null,
+            null);
         try {
-            // Display the number of rows in the Cursor (which reflects the number of rows in the
-            // pets table in the database).
-            TextView displayView = (TextView) findViewById(R.id.text);
-            displayView.setText("Number of rows in database table: " + cursor.getCount());
+            displayView.setText("The pets table contains " + cursor.getCount() + " pets.\n\n");
+            displayView.append(IngredientContract.IngredientEntry._ID + " - " +
+                   IngredientContract.IngredientEntry.COLUMN_INGREDIENT_NAME + " - " +
+                   IngredientContract.IngredientEntry.COLUMN_INGREDIENT_MEASUREMENT + " - " +
+                    IngredientContract.IngredientEntry.COLUMN_INGREDIENT_QUANTITY + " - " + "\n");
+
+            // Figure out the index of each column
+            int idColumnIndex = cursor.getColumnIndex(IngredientContract.IngredientEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_NAME);
+            int measurementIndex = cursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_MEASUREMENT);
+            int quantityIndex = cursor.getColumnIndex(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_QUANTITY);
+
+            // Iterate through all the returned rows in the cursor
+            while (cursor.moveToNext()) {
+                // Use that index to extract the String or Int value of the word
+                // at the current row the cursor is on.
+                int currentID = cursor.getInt(idColumnIndex);
+                String currentName = cursor.getString(nameColumnIndex);
+                String currentMeasurement = cursor.getString(measurementIndex);
+                String currentQuantity = cursor.getString(quantityIndex);
+                // Display the values from each column of the current row in the cursor in the TextView
+                displayView.append(("\n" + currentID + " - " +
+                        currentName + " - " + currentMeasurement + " - " + currentQuantity));
+            }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
             // resources and makes it invalid.
