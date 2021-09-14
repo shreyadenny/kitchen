@@ -1,5 +1,6 @@
 package com.example.kitchen;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,18 +20,11 @@ public class EditorActivity extends AppCompatActivity{
     Spinner spinner;
     String unit;
     int q;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-
-        //name input
-        EditText editText_name = (EditText)findViewById(R.id.edit_ingredient_name);
-        String name = editText_name.getText().toString();
-
-        //quantity
-        TextView quantity = (TextView)findViewById(R.id.edit_quantity);
-
 
         //Spinner Values
         spinner = (Spinner) findViewById(R.id.spinner_gender);
@@ -72,23 +66,7 @@ public class EditorActivity extends AppCompatActivity{
 
             }
         });
-
-
-
-//        public void insertIngredient(){
-//            SQLiteDatabase db =
-//        }
-
-        //Actions on clicking the save button after entering new ingredient data
-//        Button save = (Button) findViewById(R.id.save);
-//        save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                System.out.println("Save");
-//                insertIngredient();
-//                displayDatabaseInfo();
-//            }
-//        });
+//
     }
 
     //increment quantity
@@ -112,6 +90,8 @@ public class EditorActivity extends AppCompatActivity{
         }
        display(q);
     }
+
+
     //decrement quantity
     public void decrement(View view) {
         switch (unit){
@@ -133,6 +113,7 @@ public class EditorActivity extends AppCompatActivity{
         }
         if(q<0){q=0;}
         display(q);
+
     }
 
     //display quantity
@@ -141,4 +122,39 @@ public class EditorActivity extends AppCompatActivity{
         quantityTextView.setText("" + number);
     }
 
+    public void submitOrder(View view){
+        startActivity(new Intent(EditorActivity.this, MainActivity.class));
+        insertIngredient();
+    }
+    //insert Ingredient
+    public void insertIngredient(){
+        //name input
+        EditText editText_name = (EditText)findViewById(R.id.edit_ingredient_name);
+         String name = editText_name.getText().toString();
+
+        //quantity
+        TextView quantity = (TextView)findViewById(R.id.edit_quantity);
+
+        ingredientDbHelper mDbHelper = new ingredientDbHelper(this);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        // Create a ContentValues object where column names are the keys,
+        // and Toto's pet attributes are the values.
+        ContentValues values = new ContentValues();
+        values.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_NAME, name);
+        values.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_MEASUREMENT, unit);
+        values.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_QUANTITY, q);
+
+
+        long newRowId = db.insert(IngredientContract.IngredientEntry.TABLE_NAME, null, values);
+
+        if(newRowId == -1){
+            Toast.makeText(this,"Error with saving ingredient", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this,"Ingredient saved with row id:" + newRowId, Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
