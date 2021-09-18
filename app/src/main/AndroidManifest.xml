@@ -18,7 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+<provider
+    android:authorities="com.example.adnroid.kitchen"
+    android:name=".IngredientProvider"
+    android:exported="false"/>
     </application>
 
 </manifest>

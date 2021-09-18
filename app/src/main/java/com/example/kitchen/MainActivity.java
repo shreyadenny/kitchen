@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         // and pass the context, which is the current activity.
         mDbHelper = new ingredientDbHelper(this);
 
-
         TextView displayView = (TextView) findViewById(R.id.text);
 
         // Create and/or open a database to read from it
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             null,
             null);
         try {
-            displayView.setText("The pets table contains " + cursor.getCount() + " pets.\n\n");
+            displayView.setText("The ingredients table contains " + cursor.getCount() + " pets.\n\n");
             displayView.append(IngredientContract.IngredientEntry._ID + " - " +
                    IngredientContract.IngredientEntry.COLUMN_INGREDIENT_NAME + " - " +
                    IngredientContract.IngredientEntry.COLUMN_INGREDIENT_MEASUREMENT + " - " +
