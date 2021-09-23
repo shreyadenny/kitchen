@@ -6,4 +6,6 @@
     <string name="ml">ml</string>
     <string name="dozen">dozen</string>
     <string name="packet">packet</string>
+    <string name="editor_insert_ingredient_failed">editor_insert_ingredient_failed</string>
+    <string name="editor_insert_ingredient_successful">editor_insert_ingredient_successful</string>
 </resources>

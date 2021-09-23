@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 
 
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 String currentMeasurement = cursor.getString(measurementIndex);
                 String currentQuantity = cursor.getString(quantityIndex);
                 // Display the values from each column of the current row in the cursor in the TextView
+
                 displayView.append(("\n" + currentID + " - " +
                         currentName + " - " + currentMeasurement + " - " + currentQuantity));
             }
@@ -158,14 +160,8 @@ public class MainActivity extends AppCompatActivity {
         values.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_QUANTITY, q);
 
 
-        long newRowId = db.insert(IngredientContract.IngredientEntry.TABLE_NAME, null, values);
+        Uri newUri = getContentResolver().insert(IngredientContract.IngredientEntry.CONTENT_URI, values);
 
-        if(newRowId == -1){
-            Toast.makeText(this,"Error with saving ingredient", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(this,"Ingredient saved with row id:" + newRowId, Toast.LENGTH_SHORT).show();
-        }
 
     }
     //display quantity

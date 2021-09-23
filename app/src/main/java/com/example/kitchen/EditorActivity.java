@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -147,14 +148,17 @@ public class EditorActivity extends AppCompatActivity{
         values.put(IngredientContract.IngredientEntry.COLUMN_INGREDIENT_QUANTITY, q);
 
 
-        long newRowId = db.insert(IngredientContract.IngredientEntry.TABLE_NAME, null, values);
+        Uri newUri = getContentResolver().insert(IngredientContract.IngredientEntry.CONTENT_URI, values);
 
-        if(newRowId == -1){
-            Toast.makeText(this,"Error with saving ingredient", Toast.LENGTH_SHORT).show();
+        // Show a toast message depending on whether or not the insertion was successful
+        if (newUri == null) {
+            // If the new content URI is null, then there was an error with insertion.
+            Toast.makeText(this, getString(R.string.editor_insert_ingredient_failed),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the insertion was successful and we can display a toast.
+            Toast.makeText(this, getString(R.string.editor_insert_ingredient_successful),
+                    Toast.LENGTH_SHORT).show();
         }
-        else{
-            Toast.makeText(this,"Ingredient saved with row id:" + newRowId, Toast.LENGTH_SHORT).show();
-        }
-
     }
 }
