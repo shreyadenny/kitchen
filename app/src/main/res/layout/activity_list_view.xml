@@ -41,11 +41,22 @@
             android:fontFamily="sans-serif-black" />
 
         <TextView
+            android:id="@+id/quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="16dp"
-            android:text="500 gm"
+            android:text="500"
+            android:textColor="#d46e55"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-black" />
+        <TextView
+            android:id="@+id/unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="16dp"
+            android:text="gm"
             android:textColor="#d46e55"
             android:textSize="15sp"
             android:fontFamily="sans-serif-black" />

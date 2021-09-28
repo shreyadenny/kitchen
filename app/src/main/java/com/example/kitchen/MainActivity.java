@@ -25,13 +25,17 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private ingredientDbHelper mDbHelper;
     public Cursor cursor;
     int q;
     // Array of strings...
     ListView simpleList;
-    String animalList[] = {"rice", "wheat", "oil", "milk", "salt", "sugar", "tomatoes", "tea", "coffee", "turmeric", "chilli powder"};
+    ArrayList<String> names= new ArrayList<>();
+    ArrayList<String> quantity= new ArrayList<>();
+    ArrayList<String> unit= new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +57,14 @@ public class MainActivity extends AppCompatActivity {
         //to display the list of ingredients
         simpleList = (ListView) findViewById(R.id.simpleListView);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view, R.id.textView, animalList);
-        simpleList.setAdapter(arrayAdapter);
+        ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view, R.id.textView, names);
+        simpleList.setAdapter(nameAdapter);
 
+        //ArrayAdapter<String> quantityAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view, R.id.quantity, quantity);
+        //simpleList.setAdapter(quantityAdapter);
+
+       // ArrayAdapter<String> unitAdapter = new ArrayAdapter<String>(this, R.layout.activity_list_view, R.id.unit, unit);
+       // simpleList.setAdapter(unitAdapter);
     }
     private void displayDatabaseInfo(){
         // To access our database, we instantiate our subclass of SQLiteOpenHelper
@@ -100,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
                 String currentName = cursor.getString(nameColumnIndex);
                 String currentMeasurement = cursor.getString(measurementIndex);
                 String currentQuantity = cursor.getString(quantityIndex);
+
+                names.add(currentName);
+                quantity.add(currentQuantity);
+                unit.add(currentMeasurement);
                 // Display the values from each column of the current row in the cursor in the TextView
 
                 displayView.append(("\n" + currentID + " - " +
